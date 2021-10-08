@@ -21,7 +21,7 @@ int detectarSO()
 //------------------------------------------------------
 
 //Entrada: No recibe
-//Salida: No retorSin costo hasta los 30 años:na
+//Salida: No retorna
 //Función: Detecta el sistema operativo en uso y limpia la consola
 void limpiarConsola()
 {
@@ -46,5 +46,18 @@ void limpiarConsola()
 song * leerListado(){
     song * listado = (song*)malloc(sizeof(song)*0);
     FILE *archivo = fopen("listado.in", "r");
-    
+    song aux;
+    char strAux[150];
+    int cantidad;
+    cantidad = atoi(fgets(strAux,150,archivo));
+    for(int i = 0; i < cantidad;i++){
+        fgets(strAux,150,archivo);
+        aux.name = strtok(strAux," ");
+        aux.kind = atoi(strtok(NULL," "));
+        aux.duration[0] = atoi(strtok(NULL,":"));
+        aux.duration[1] = atoi(strtok(NULL," "));
+        aux.autor = strtok(NULL,"\n");
+        
+    }
+    return listado;
 }

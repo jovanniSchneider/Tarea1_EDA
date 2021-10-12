@@ -4,6 +4,12 @@
 #include "structures.h"
 
 
+//DECLARACION DE FUNCIONES 
+int detectarSO();
+void limpiarConsola();
+song * leerListado();
+quicksort();
+
 //Entrada: No recibe
 //Salida: Un entero, 0 para windows, 1 Para Linux o MAC
 //Función: Detecta el sistema operativo en el que se está trabajando
@@ -63,3 +69,4 @@ song * leerListado(){
     fclose(archivo);
     return listado;
 }
+

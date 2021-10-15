@@ -46,24 +46,48 @@ void limpiarConsola()
 }
 
 void swap(song *cancion1,song *cancion2){
-    song temporal = *cancion1;
-    *cancion1 = *cancion2;
-    *cancion2 = temporal;
+    song temporal;
+    strcpy(temporal.name,cancion1->name);
+    strcpy(temporal.autor,cancion1->autor);
+    temporal.duration[0] = cancion1->duration[0];
+    temporal.duration[1] = cancion1->duration[1];
+    temporal.kind = cancion1->kind;
+    cancion1->duration[0] = cancion2->duration[0];
+    cancion1->duration[1] = cancion2->duration[1];
+    strcpy(cancion1->autor,cancion2->autor);
+    strcpy(cancion1->name,cancion2->name);
+    cancion2->duration[0] = temporal.duration[0];
+    cancion2->duration[1] = temporal.duration[1];
+    strcpy(cancion2->autor,temporal.autor);
+    strcpy(cancion2->name,temporal.name);
 }
 
 int particiona(song * lista, int inicio, int fin){
-    int x = lista[inicio].kind;
-    int i = inicio-1;
-    for (int j = inicio; j < fin-1; j++)
+    int izquierda = inicio;
+    int derecha = fin;
+    int temporal;
+    int pivote = lista[(izquierda+derecha)/2].kind;
+    printf("pivote: %d\n",pivote);
+    printf("izquierda %d\n",izquierda);
+    printf("derecha %d\n",derecha);
+    printf("%d\n",lista[izquierda].kind);
+    do
     {
-        if (lista[j].kind <= x)
+        while (lista[izquierda].kind < pivote && izquierda<fin)
         {
-            i++;
-            swap(&lista[i],&lista[j]);
+            printf("Aqui voy\n");
+            izquierda++;
         }
-    }
-    swap(&lista[i+1],&lista[fin]);
-    return(i+1);
+        while (lista[derecha].kind > pivote && derecha>inicio)
+        {
+            derecha--;
+        }
+        if (izquierda<=derecha)
+        {
+            swap(&lista[izquierda],&lista[derecha]);
+        }
+    } while (izquierda<=derecha);
+    
 }
 
 
@@ -73,7 +97,7 @@ int particiona(song * lista, int inicio, int fin){
 song * quicksort(song * lista, int inicio, int fin){
     if (inicio<fin)
     {
-            int pivote = particiona(lista,inicio,pivote);
+            int pivote = particiona(lista,inicio,fin);
             quicksort(lista,inicio,pivote-1);
             quicksort(lista,pivote+1,fin);
     }
@@ -100,7 +124,7 @@ song * leerListado(){
         listado[i].duration[1] = atoi(strtok(NULL," "));
         listado[i].autor = strtok(NULL,"\n");
     }
-    quicksort(listado,0,cantidad);
+    quicksort(listado,0,cantidad-1);
     printf("-------------Quicksort----------------\n");
     for (int i = 0; i < cantidad; i++)
     {

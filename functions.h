@@ -87,7 +87,7 @@ int particiona(song * lista, int inicio, int fin){
             swap(&lista[izquierda],&lista[derecha]);
         }
     } while (izquierda<=derecha);
-    
+    return pivote;
 }
 
 
